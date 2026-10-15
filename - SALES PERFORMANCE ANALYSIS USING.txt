@@ -1,0 +1,124 @@
+- SALES PERFORMANCE ANALYSIS USING SQL
+
+-- 1. Monthly sales and revenue
+SELECT
+    substr(sale_date, 1, 7) AS month,
+    COUNT(*) AS number_of_sales,
+    SUM(price * quantity) AS total_revenue
+FROM sales
+GROUP BY month
+ORDER BY total_revenue DESC;
+
+
+Employee revenue performance
+SELECT
+    employees.employee_name,
+    SUM(sales.price * sales.quantity) AS total_revenue
+FROM sales
+JOIN employees
+    ON sales.employee_id = employees.employee_id
+GROUP BY employees.employee_name
+ORDER BY total_revenue DESC;
+
+
+ Product revenue performance
+SELECT
+    products.product_name,
+    SUM(sales.price * sales.quantity) AS total_revenue
+FROM sales
+JOIN products
+    ON sales.product_id = products.product_id
+GROUP BY products.product_name
+ORDER BY total_revenue DESC;
+
+
+PRODUCT REVENUE PERFORMANCE
+
+SELECT
+
+    p.name AS product_name,
+
+    SUM(s.price * s.quantity) AS total_revenue
+
+FROM sales AS s
+
+JOIN products AS p
+
+    ON s.product_id = p.product_id
+
+GROUP BY p.name
+
+ORDER BY total_revenue DESC;
+
+
+CUSTOMER REVENUE PERFORMANCE
+
+SELECT
+
+    c.name AS customer_name,
+
+    SUM(s.price * s.quantity) AS total_revenue
+
+FROM sales AS s
+
+JOIN customers AS c
+
+    ON s.customer_id = c.customer_id
+
+GROUP BY c.name
+
+ORDER BY total_revenue DESC;
+
+
+
+ TOTAL REVENUE GENERATED
+
+SELECT
+
+    SUM(price * quantity) AS total_revenue
+
+FROM sales;
+
+
+TOTAL NUMBER OF SALES
+
+SELECT
+
+    COUNT(*) AS total_number_of_sales
+
+FROM sales
+
+
+ MONTHLY SALES COUNT
+
+SELECT
+
+    substr(sale_date, 1, 7) AS month,
+
+    COUNT(*) AS number_of_sales
+
+FROM sales
+
+GROUP BY month
+
+ORDER BY number_of_sales DESC;
+
+
+TOP-SELLING PRODUCTS BY UNITS SOLD
+
+SELECT
+
+    p.name AS product_name,
+
+    SUM(s.quantity) AS units_sold
+
+FROM sales AS s
+
+JOIN products AS p
+
+    ON s.product_id = p.product_id
+
+GROUP BY p.name
+
+ORDER BY units_sold DESC;
+
